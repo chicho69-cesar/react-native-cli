@@ -1,26 +1,37 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
+import Ionicons from '@react-native-vector-icons/ionicons';
 import React from 'react';
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { PaperProvider } from 'react-native-paper';
+
+// import HelloWorldScreen from './src/presentation/screens/hello-world-screen';
+// import CounterScreen from './src/presentation/screens/counter-screen';
+// import CounterM3Screen from './src/presentation/screens/counter-m3-screen';
+// import BoxObjectModelScreen from './src/presentation/screens/box-object-model-screen';
+// import DimensionsScreen from './src/presentation/screens/dimensions-screen';
+// import PositionScreen from './src/presentation/screens/positions-screen';
+// import FlexScreen from './src/presentation/screens/flex-screen';
+// import FlexDirectionsScreen from './src/presentation/screens/flex-direction-screen';
+import HomeworkScreen from './src/presentation/screens/homework-screen';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <View style={styles.container}>
-      <Text>
-        Hello World!!!
-      </Text>
-
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <PaperProvider
+      settings={{
+        icon: (props) => <Ionicons {...props} />,
+      }}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        {/* <HelloWorldScreen name='Cesar Villalobos Olmos' /> */}
+        {/* <CounterScreen /> */}
+        {/* <CounterM3Screen /> */}
+        {/* <BoxObjectModelScreen /> */}
+        {/* <DimensionsScreen /> */}
+        {/* <PositionScreen /> */}
+        {/* <FlexScreen /> */}
+        {/* <FlexDirectionsScreen /> */}
+        <HomeworkScreen />
+      </SafeAreaView>
+    </PaperProvider>
   );
 }
 
