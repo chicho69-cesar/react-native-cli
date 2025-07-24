@@ -1,7 +1,12 @@
 import { HttpAdapter } from '../../../config/adapters/http/http.adapter'
-import { MovieDBMoviesResponse, NowPlayingResponse } from '../../../infrastructure/interfaces/movie-db.responses'
+import { MovieDBMovie, MovieDBMoviesResponse, NowPlayingResponse } from '../../../infrastructure/interfaces/movie-db.responses'
 import { MovieMapper } from '../../../infrastructure/mappers/movie.mapper'
-import type { Movie } from '../../entities/movie.entity'
+import type { FullMovie, Movie } from '../../entities/movie.entity'
+
+interface PopularOptions {
+  page?: number
+  limit?: number
+}
 
 export class MoviesUsesCases {
   static async moviesNowPlayingUseCase(fetcher: HttpAdapter): Promise<Movie[]> {
@@ -14,9 +19,17 @@ export class MoviesUsesCases {
     }
   }
 
-  static async moviesPopularUseCase(fetcher: HttpAdapter): Promise<Movie[]> {
+  static async moviesPopularUseCase(fetcher: HttpAdapter, options?: PopularOptions): Promise<Movie[]> {
     try {
-      const popularResponse = await fetcher.get<MovieDBMoviesResponse>('/popular')
+      const popularResponse = await fetcher.get<MovieDBMoviesResponse>(
+        '/popular',
+        {
+          params: {
+            page: options?.page || 1,
+          }
+        }
+      )
+
       return popularResponse.results.map(MovieMapper.fromDBResponseToEntity)
     } catch (error) {
       console.error('Error fetching popular movies:', error)
@@ -41,6 +54,17 @@ export class MoviesUsesCases {
     } catch (error) {
       console.error('Error fetching upcoming movies:', error)
       throw new Error('Failed to fetch upcoming movies')
+    }
+  }
+
+  static async getMovieByIdUseCase(fetcher: HttpAdapter, movieId: number): Promise<FullMovie> {
+    try {
+      const movieResponse = await fetcher.get<MovieDBMovie>(`/${movieId}`)
+      const fullMovie = MovieMapper.fromMovieDBToEntity(movieResponse)
+      return fullMovie
+    } catch (error) {
+      console.error(`Error fetching movie with ID ${movieId}:`, error)
+      throw new Error(`Failed to fetch movie with ID ${movieId}`)
     }
   }
 }
