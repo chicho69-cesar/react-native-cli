@@ -1,10 +1,34 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { ScrollView } from 'react-native'
 
-export default function DetailsScreen() {
+import FullScreenLoader from '../components/loaders/full-screen-loader'
+import MovieDetails from '../components/movies/movie-details'
+import MovieHeader from '../components/movies/movie-header'
+import useMovie from '../hooks/use-movie'
+import { RootStackParams } from '../navigation/app-navigation'
+
+interface DetailsScreenProps extends StackScreenProps<RootStackParams, 'details'> { }
+
+export default function DetailsScreen({ route }: DetailsScreenProps) {
+  const { movieId } = route.params
+  const { isLoading, cast, movie } = useMovie(movieId)
+
+  if (isLoading) {
+    return (
+      <FullScreenLoader />
+    )
+  }
+
   return (
-    <View>
-      <Text>DetailsScreen</Text>
-    </View>
+    <ScrollView>
+      <MovieHeader
+        originalTitle={movie!.originalTitle}
+        title={movie!.title}
+        poster={movie!.poster}
+      />
+
+      <MovieDetails movie={movie!} cast={cast} />
+    </ScrollView>
   )
 }

@@ -6,7 +6,7 @@ import HomeScreen from '../screens/home-screen'
 
 export type RootStackParams = {
   home: undefined
-  details: { movieId: string }
+  details: { movieId: number }
 }
 
 const Stack = createStackNavigator<RootStackParams>()
