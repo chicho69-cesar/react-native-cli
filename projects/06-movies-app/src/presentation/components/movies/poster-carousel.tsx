@@ -17,6 +17,8 @@ export default function PosterCarousel({ movies, height }: PosterCarouselProps) 
           <MoviePoster
             key={movie.id}
             movie={movie}
+            width={300}
+            height={400}
           />
         ))}
       </ScrollView>

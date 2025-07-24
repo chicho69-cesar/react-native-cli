@@ -26,7 +26,7 @@ export default function MoviePoster({ movie, height, width }: MoviePosterProps) 
         opacity: pressed ? 0.9 : 1,
       })}
     >
-      <View style={{ ...styles.imageContainer, height: 400, width: 300 }}>
+      <View style={{ ...styles.imageContainer }}>
         <Image
           src={movie.poster}
           style={styles.image}
