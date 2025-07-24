@@ -5,6 +5,7 @@ import { Movie } from '../../core/entities/movie.entity'
 import { MoviesUsesCases } from '../../core/use-cases/movies/movies.use-cases'
 
 const movieDB = new MovieDBAdapter().movieDB
+let popularPage = 1
 
 export default function useMovies() {
   const [isLoading, setIsLoading] = useState(true)
@@ -43,11 +44,19 @@ export default function useMovies() {
     setIsLoading(false)
   }
 
+  const loadMorePopularNextPage = async () => {
+    popularPage++
+    const popularMovies = await MoviesUsesCases.moviesPopularUseCase(movieDB, { page: popularPage })
+    setPopular((prev) => [...prev, ...popularMovies])
+  }
+
   return {
     isLoading,
     nowPlaying,
     popular,
     topRated,
-    upcoming
+    upcoming,
+
+    loadMorePopularNextPage
   }
 }
