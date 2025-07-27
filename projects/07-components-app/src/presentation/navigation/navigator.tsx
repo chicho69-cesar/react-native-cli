@@ -39,7 +39,7 @@ export default function Navigator() {
       <Stack.Screen name='custom-section-list-screen' component={CustomSectionListScreen} />
       <Stack.Screen name='modal-screen' component={ModalScreen} />
       <Stack.Screen name='infinite-scroll-screen' component={InfiniteScrollScreen} />
-      <Stack.Screen name='slide-screen' component={SlideScreen} />
+      <Stack.Screen name='slides-screen' component={SlideScreen} />
       <Stack.Screen name='change-theme-screen' component={ChangeThemeScreen} />
     </Stack.Navigator>
   )

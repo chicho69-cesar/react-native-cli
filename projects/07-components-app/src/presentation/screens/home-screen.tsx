@@ -64,7 +64,7 @@ const uiMenuItems = [
   {
     name: 'TextInputs',
     icon: 'document-text-outline',
-    component: 'text-input-screen',
+    component: 'text-inputs-screen',
   },
 ]
 
